@@ -1,21 +1,32 @@
-steps:
+name: Static Website Validation
 
-  - name: Checkout Repository
-    uses: actions/checkout@v5
+on:
+  push:
+    branches:
+      - main
 
-  - name: Setup Node
-    uses: actions/setup-node@v5
-    with:
-      node-version: 24
+jobs:
+  validate:
+    runs-on: ubuntu-latest
 
-  - name: Verify HTML File
-    run: test -f index.html
+    steps:
 
-  - name: Verify CSS File
-    run: test -f style.css
+      - name: Checkout Repository
+        uses: actions/checkout@v5
 
-  - name: Verify Dockerfile
-    run: test -f Dockerfile
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
 
-  - name: Validation Successful
-    run: echo "All required files exist."
+      - name: Verify HTML File
+        run: test -f index.html
+
+      - name: Verify CSS File
+        run: test -f style.css
+
+      - name: Verify Dockerfile
+        run: test -f Dockerfile
+
+      - name: Validation Successful
+        run: echo "All required files exist."
