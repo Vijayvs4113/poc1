@@ -1,0 +1,27 @@
+name: Static Website Validation
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Verify HTML File
+        run: test -f index.html
+
+      - name: Verify CSS File
+        run: test -f style.css
+
+      - name: Verify Dockerfile
+        run: test -f Dockerfile
+
+      - name: Validation Successful
+        run: echo "All required files exist."
