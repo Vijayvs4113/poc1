@@ -3,16 +3,10 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "yourdockerhubusername/static-website"
+        IMAGE_NAME = "vijayvs6383/static-website"
     }
 
     stages {
-
-        stage('Clone') {
-            steps {
-                echo 'Repository cloned successfully.'
-            }
-        }
 
         stage('Build Docker Image') {
             steps {
@@ -29,7 +23,6 @@ pipeline {
                         passwordVariable: 'DOCKER_PASS'
                     )
                 ]) {
-
                     sh '''
                     echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
                     '''
@@ -37,7 +30,7 @@ pipeline {
             }
         }
 
-        stage('Push Image') {
+        stage('Push Docker Image') {
             steps {
                 sh 'docker push $IMAGE_NAME:latest'
             }
@@ -46,3 +39,4 @@ pipeline {
     }
 
 }
+
