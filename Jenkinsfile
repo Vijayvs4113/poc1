@@ -36,6 +36,16 @@ pipeline {
             }
         }
 
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh '''
+                    kubectl apply -f k8s/
+                    kubectl rollout restart deployment/static-website
+                    kubectl rollout status deployment/static-website
+                '''
+            }
+}
+
     }
 
 }
