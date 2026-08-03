@@ -3,16 +3,10 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "$DOCKER_USER/static-website"
+        IMAGE_NAME = "vijayvs6383/static-website"
     }
 
     stages {
-
-        stage('Clean Workspace') {
-            steps {
-                cleanWs()
-            }
-        }
 
         stage('Build Docker Image') {
             steps {
@@ -45,12 +39,12 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 sh '''
-                    kubectl apply -f k8s/
-                    kubectl rollout restart deployment/static-website
-                    kubectl rollout status deployment/static-website
+                kubectl apply -f k8s/
+                kubectl rollout restart deployment/static-website
+                kubectl rollout status deployment/static-website
                 '''
             }
-}
+        }
 
         stage('Verify Deployment') {
             steps {
@@ -61,8 +55,5 @@ pipeline {
                 '''
             }
         }
-
     }
-
 }
-
