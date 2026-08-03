@@ -3,10 +3,16 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "vijayvs6383/static-website"
+        IMAGE_NAME = "$DOCKER_USER/static-website"
     }
 
     stages {
+
+        stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
@@ -45,6 +51,16 @@ pipeline {
                 '''
             }
 }
+
+        stage('Verify Deployment') {
+            steps {
+                sh '''
+                kubectl get deployments
+                kubectl get pods
+                kubectl get svc
+                '''
+            }
+        }
 
     }
 
