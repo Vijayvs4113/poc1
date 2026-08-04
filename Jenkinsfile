@@ -4,6 +4,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = "vijayvs6383/static-website"
+        KUBECONFIG = "/var/jenkins_home/.kube/config-jenkins"
     }
 
     stages {
